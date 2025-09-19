@@ -95,20 +95,20 @@
 
 /* Mobile-optimized button styles */
 @media (max-width: 768px) {
-  button, 
-  [role="button"],
-  input[type="button"],
-  input[type="submit"] {
+  button,
+  [role='button'],
+  input[type='button'],
+  input[type='submit'] {
     min-height: 44px; /* iOS recommended minimum touch target */
     min-width: 44px;
     touch-action: manipulation;
   }
 
   /* Improve form inputs on mobile */
-  input[type="text"],
-  input[type="email"],
-  input[type="password"],
-  input[type="search"],
+  input[type='text'],
+  input[type='email'],
+  input[type='password'],
+  input[type='search'],
   textarea,
   select {
     font-size: 16px; /* Prevent zoom on iOS */
@@ -117,14 +117,14 @@
   }
 
   /* Optimize dropdown menus for mobile */
-  [role="menu"],
-  [role="listbox"] {
+  [role='menu'],
+  [role='listbox'] {
     max-height: 60vh;
     overflow-y: auto;
   }
 
   /* Improve modal dialogs on mobile */
-  [role="dialog"] {
+  [role='dialog'] {
     margin: 1rem;
     max-height: calc(100vh - 2rem);
     width: calc(100vw - 2rem);

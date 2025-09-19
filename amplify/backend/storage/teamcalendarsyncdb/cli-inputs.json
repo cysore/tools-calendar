@@ -1,0 +1,26 @@
+{
+  "resourceName": "teamcalendarsyncdb",
+  "tableName": "teamcalendarsyncdb",
+  "partitionKey": {
+    "fieldName": "PK",
+    "fieldType": "string"
+  },
+  "sortKey": {
+    "fieldName": "SK",
+    "fieldType": "string"
+  },
+  "gsi": [
+    {
+      "name": "GSI1",
+      "partitionKey": {
+        "fieldName": "GSI1PK",
+        "fieldType": "string"
+      },
+      "sortKey": {
+        "fieldName": "GSI1SK",
+        "fieldType": "string"
+      }
+    }
+  ],
+  "triggerFunctions": []
+}

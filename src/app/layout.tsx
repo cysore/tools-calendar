@@ -8,6 +8,9 @@ import {
   PWAInitializer,
 } from '@/components/pwa';
 import { PerformanceInitializer } from '@/components/performance/PerformanceInitializer';
+import { ErrorProvider, GlobalErrorHandler } from '@/components/error';
+import { ToastProvider } from '@/components/ui';
+import { ProductionMonitor } from '@/components/production/ProductionMonitor';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -90,14 +93,20 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen bg-background font-sans antialiased">
-        <AuthProvider>
-          <PWAInitializer />
-          <PerformanceInitializer />
-          <OfflineDetector>
-            <div id="root">{children}</div>
-            <PWAInstallPrompt />
-          </OfflineDetector>
-        </AuthProvider>
+        <ErrorProvider enableAutoRecovery={true} enableErrorReporting={true}>
+          <ToastProvider>
+            <GlobalErrorHandler />
+            <AuthProvider>
+              <ProductionMonitor />
+              <PWAInitializer />
+              <PerformanceInitializer />
+              <OfflineDetector>
+                <div id="root">{children}</div>
+                <PWAInstallPrompt />
+              </OfflineDetector>
+            </AuthProvider>
+          </ToastProvider>
+        </ErrorProvider>
       </body>
     </html>
   );

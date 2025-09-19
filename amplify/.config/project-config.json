@@ -1,0 +1,15 @@
+{
+  "projectName": "teamcalendarsync",
+  "version": "3.1",
+  "frontend": "javascript",
+  "javascript": {
+    "framework": "react",
+    "config": {
+      "SourceDir": "src",
+      "DistributionDir": ".next",
+      "BuildCommand": "npm run build",
+      "StartCommand": "npm run dev"
+    }
+  },
+  "providers": ["awscloudformation"]
+}

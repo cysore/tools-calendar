@@ -58,3 +58,86 @@ global.ResizeObserver = class ResizeObserver {
   observe() {}
   unobserve() {}
 };
+
+// Mock matchMedia
+Object.defineProperty(window, 'matchMedia', {
+  writable: true,
+  value: jest.fn().mockImplementation(query => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: jest.fn(), // deprecated
+    removeListener: jest.fn(), // deprecated
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+    dispatchEvent: jest.fn(),
+  })),
+});
+
+// Mock indexedDB
+global.indexedDB = {
+  open: jest.fn(() => ({
+    onsuccess: null,
+    onerror: null,
+    result: {
+      createObjectStore: jest.fn(),
+      transaction: jest.fn(() => ({
+        objectStore: jest.fn(() => ({
+          add: jest.fn(),
+          get: jest.fn(),
+          put: jest.fn(),
+          delete: jest.fn(),
+        })),
+      })),
+    },
+  })),
+  deleteDatabase: jest.fn(),
+};
+
+// Mock Notification API
+global.Notification = {
+  permission: 'default',
+  requestPermission: jest.fn(() => Promise.resolve('granted')),
+};
+
+// Mock caches API
+global.caches = {
+  open: jest.fn(() =>
+    Promise.resolve({
+      match: jest.fn(),
+      add: jest.fn(),
+      addAll: jest.fn(),
+      put: jest.fn(),
+      delete: jest.fn(),
+      keys: jest.fn(() => Promise.resolve([])),
+    })
+  ),
+  match: jest.fn(),
+  has: jest.fn(),
+  delete: jest.fn(() => Promise.resolve(true)),
+  keys: jest.fn(() => Promise.resolve(['cache1', 'cache2'])),
+};
+
+// Mock localStorage
+const localStorageMock = {
+  getItem: jest.fn(),
+  setItem: jest.fn(),
+  removeItem: jest.fn(),
+  clear: jest.fn(),
+};
+Object.defineProperty(window, 'localStorage', {
+  value: localStorageMock,
+});
+
+// Mock window.confirm and window.prompt
+window.confirm = jest.fn(() => true);
+window.prompt = jest.fn(() => 'test');
+
+// Mock window.location.reload
+Object.defineProperty(window, 'location', {
+  value: {
+    ...window.location,
+    reload: jest.fn(),
+  },
+  writable: true,
+});

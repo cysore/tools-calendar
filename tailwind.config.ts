@@ -64,7 +64,7 @@ const config: Config = {
         'slide-down': 'slideDown 0.3s ease-out',
       },
       spacing: {
-        'safe': 'env(safe-area-inset-bottom)',
+        safe: 'env(safe-area-inset-bottom)',
       },
       keyframes: {
         fadeIn: {

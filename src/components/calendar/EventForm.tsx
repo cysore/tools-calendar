@@ -13,6 +13,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { sanitizeInput, validateEmail } from '@/lib/client-security';
+import { useFormSecurity, useSecurityMonitoring } from '@/hooks/useSecurity';
 
 interface EventFormProps {
   event?: CalendarEvent;
@@ -50,6 +52,9 @@ export function EventForm({
   onCancel,
   loading = false,
 }: EventFormProps) {
+  const { validateForm: validateFormSecurity, sanitizeFormData } =
+    useFormSecurity();
+  const { reportSuspiciousActivity } = useSecurityMonitoring();
   const [formData, setFormData] = useState<CreateEventFormData>(() => {
     if (event) {
       // 编辑模式：使用现有事件数据
@@ -97,7 +102,28 @@ export function EventForm({
 
   // 处理表单字段变化
   const handleFieldChange = (field: keyof CreateEventFormData, value: any) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    // Sanitize string inputs to prevent XSS
+    let sanitizedValue = value;
+    if (
+      typeof value === 'string' &&
+      ['title', 'location', 'description'].includes(field)
+    ) {
+      sanitizedValue = sanitizeInput(value);
+
+      // Additional length validation
+      const maxLengths = {
+        title: 200,
+        location: 200,
+        description: 1000,
+      };
+
+      const maxLength = maxLengths[field as keyof typeof maxLengths];
+      if (maxLength && sanitizedValue.length > maxLength) {
+        sanitizedValue = sanitizedValue.substring(0, maxLength);
+      }
+    }
+
+    setFormData(prev => ({ ...prev, [field]: sanitizedValue }));
 
     // 清除该字段的错误
     if (errors[field]) {
@@ -155,7 +181,41 @@ export function EventForm({
     // 标题验证
     if (!formData.title.trim()) {
       newErrors.title = '请输入事件标题';
+    } else if (formData.title.trim().length < 2) {
+      newErrors.title = '事件标题至少需要2个字符';
+    } else if (formData.title.trim().length > 200) {
+      newErrors.title = '事件标题不能超过200个字符';
     }
+
+    // 地点验证
+    if (formData.location && formData.location.length > 200) {
+      newErrors.location = '地点不能超过200个字符';
+    }
+
+    // 描述验证
+    if (formData.description && formData.description.length > 1000) {
+      newErrors.description = '描述不能超过1000个字符';
+    }
+
+    // 检查是否包含潜在的恶意内容
+    const dangerousPatterns = [
+      /<script/i,
+      /javascript:/i,
+      /on\w+\s*=/i,
+      /<iframe/i,
+    ];
+
+    const fieldsToCheck = ['title', 'location', 'description'];
+    fieldsToCheck.forEach(field => {
+      const value = formData[field as keyof CreateEventFormData] as string;
+      if (value) {
+        dangerousPatterns.forEach(pattern => {
+          if (pattern.test(value)) {
+            newErrors[field] = '输入内容包含不允许的字符';
+          }
+        });
+      }
+    });
 
     // 时间验证
     const startTime = new Date(formData.startTime);
@@ -216,8 +276,31 @@ export function EventForm({
       return;
     }
 
+    // Additional security validation
+    const securityValidation = validateFormSecurity(formData, {
+      title: { required: true, minLength: 2, maxLength: 200 },
+      location: { maxLength: 200 },
+      description: { maxLength: 1000 },
+    });
+
+    if (!securityValidation.isValid) {
+      setErrors(prev => ({ ...prev, ...securityValidation.errors }));
+      reportSuspiciousActivity('form_validation_failed', {
+        form: 'event_form',
+        errors: securityValidation.errors,
+      });
+      return;
+    }
+
     try {
-      await onSubmit(formData);
+      // Sanitize form data before submission
+      const sanitizedData = sanitizeFormData(formData, {
+        title: 200,
+        location: 200,
+        description: 1000,
+      });
+
+      await onSubmit(sanitizedData as CreateEventFormData);
     } catch (error) {
       console.error('提交事件失败:', error);
       // 错误处理由父组件负责

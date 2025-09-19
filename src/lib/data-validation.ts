@@ -134,10 +134,9 @@ export const sanitizeData = {
 
   // 清理HTML内容，防止XSS
   html: (content: string): string => {
-    return content
-      .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
-      .replace(/<[^>]*>/g, '')
-      .trim();
+    // Import XSS protection from security module
+    const { XSSProtection } = require('./security');
+    return XSSProtection.sanitizeHtml(content);
   },
 
   // 清理颜色值，确保格式正确

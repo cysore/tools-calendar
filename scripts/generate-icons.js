@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 // Create a simple calendar icon SVG
-const createCalendarSVG = (size) => `
+const createCalendarSVG = size => `
 <svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
   <rect x="3" y="4" width="18" height="18" rx="2" ry="2" fill="#3b82f6" stroke="#1e40af" stroke-width="2"/>
   <line x1="16" y1="2" x2="16" y2="6" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
@@ -55,7 +55,10 @@ const shortcutTodaySVG = `
 </svg>
 `;
 
-fs.writeFileSync(path.join(iconsDir, 'shortcut-new-event.svg'), shortcutNewEventSVG);
+fs.writeFileSync(
+  path.join(iconsDir, 'shortcut-new-event.svg'),
+  shortcutNewEventSVG
+);
 fs.writeFileSync(path.join(iconsDir, 'shortcut-today.svg'), shortcutTodaySVG);
 
 console.log('Generated shortcut icons');
