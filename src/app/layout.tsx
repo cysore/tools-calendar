@@ -11,6 +11,7 @@ import { PerformanceInitializer } from '@/components/performance/PerformanceInit
 import { ErrorProvider, GlobalErrorHandler } from '@/components/error';
 import { ToastProvider } from '@/components/ui';
 import { ProductionMonitor } from '@/components/production/ProductionMonitor';
+import '@/lib/amplify-config'; // Initialize Amplify Gen 2 configuration
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 

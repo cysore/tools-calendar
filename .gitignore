@@ -85,4 +85,14 @@ logs
 /test-results/
 /playwright-report/
 /blob-report/
-/playwright/.cache/
+/playwright/.cache/# Environ
+ment files with sensitive data
+.env.production
+.env.local
+.env.*.local
+
+# AWS temporary files
+/tmp/amplify-*
+/tmp/dynamodb-*
+/tmp/domain_info.json
+/tmp/change-batch*.json
