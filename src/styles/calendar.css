@@ -1,0 +1,414 @@
+/* FullCalendar 自定义样式 */
+
+.calendar-container {
+  position: relative;
+}
+
+.calendar-wrapper {
+  transition: opacity 0.2s ease-in-out;
+}
+
+/* FullCalendar 主题定制 */
+.fc {
+  font-family: inherit;
+}
+
+.fc-theme-standard .fc-scrollgrid {
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+}
+
+.fc-theme-standard td,
+.fc-theme-standard th {
+  border-color: #f3f4f6;
+}
+
+/* 头部工具栏 */
+.fc-header-toolbar {
+  margin-bottom: 1rem;
+}
+
+.fc-toolbar-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.fc-button-primary {
+  background-color: #3b82f6;
+  border-color: #3b82f6;
+  color: white;
+  font-weight: 500;
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.375rem;
+  transition: all 0.2s;
+}
+
+.fc-button-primary:hover {
+  background-color: #2563eb;
+  border-color: #2563eb;
+}
+
+.fc-button-primary:disabled {
+  background-color: #9ca3af;
+  border-color: #9ca3af;
+  opacity: 0.6;
+}
+
+/* 日期单元格 */
+.fc-daygrid-day {
+  transition: background-color 0.2s;
+}
+
+.fc-daygrid-day:hover {
+  background-color: #f8fafc;
+}
+
+.fc-day-today {
+  background-color: #eff6ff !important;
+}
+
+.fc-daygrid-day-number {
+  color: #374151;
+  font-weight: 500;
+  padding: 0.25rem;
+}
+
+/* 事件样式 */
+.fc-event {
+  border-radius: 0.25rem;
+  border: none;
+  padding: 0.125rem 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.fc-event:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.fc-event-title {
+  font-weight: 500;
+}
+
+/* 自定义事件内容 */
+.fc-event-content-custom {
+  padding: 0.125rem 0;
+}
+
+.fc-event-title-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.fc-event-category-badge {
+  font-size: 0.75rem;
+  line-height: 1;
+}
+
+.fc-event-location {
+  margin-top: 0.125rem;
+  font-size: 0.75rem;
+  opacity: 0.8;
+}
+
+/* 时间网格视图 */
+.fc-timegrid-slot {
+  height: 2rem;
+}
+
+.fc-timegrid-slot-label {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.fc-timegrid-event {
+  border-radius: 0.25rem;
+  padding: 0.25rem;
+}
+
+/* 列表视图 */
+.fc-list-event {
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.fc-list-event:hover {
+  background-color: #f8fafc;
+}
+
+.fc-list-event-title {
+  font-weight: 500;
+}
+
+.fc-list-event-time {
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+/* 更多事件链接 */
+.fc-more-link {
+  color: #3b82f6;
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+.fc-more-link:hover {
+  color: #2563eb;
+}
+
+/* 弹出框 */
+.fc-popover {
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.fc-popover-header {
+  background-color: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 0.75rem;
+  font-weight: 600;
+}
+
+.fc-popover-body {
+  padding: 0.5rem;
+}
+
+/* 选择高亮 */
+.fc-highlight {
+  background-color: #dbeafe;
+  opacity: 0.7;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .calendar-container {
+    padding: 0;
+  }
+
+  .fc-toolbar {
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .fc-toolbar-chunk {
+    display: flex;
+    justify-content: center;
+  }
+
+  .fc-button-group {
+    display: flex;
+    gap: 0.25rem;
+  }
+
+  .fc-button {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    min-height: 44px; /* 触摸友好的最小高度 */
+    touch-action: manipulation;
+  }
+
+  .fc-toolbar-title {
+    font-size: 1.25rem;
+    text-align: center;
+  }
+
+  /* 日历网格优化 */
+  .fc-daygrid-event {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.375rem;
+    margin: 0.125rem 0;
+    min-height: 24px;
+    border-radius: 4px;
+  }
+
+  .fc-daygrid-day-number {
+    font-size: 0.875rem;
+    padding: 0.375rem;
+    min-height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .fc-daygrid-day {
+    min-height: 60px;
+  }
+
+  .fc-timegrid-slot {
+    height: 2rem;
+  }
+
+  .fc-timegrid-slot-label {
+    font-size: 0.75rem;
+    padding: 0.25rem;
+  }
+
+  /* 列表视图优化 */
+  .fc-list-event {
+    padding: 0.75rem;
+    border-bottom: 1px solid #f3f4f6;
+  }
+
+  .fc-list-event-title {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+
+  .fc-list-event-time {
+    font-size: 0.75rem;
+    margin-bottom: 0.25rem;
+  }
+
+  /* 弹出框移动端优化 */
+  .fc-popover {
+    max-width: calc(100vw - 2rem);
+    margin: 1rem;
+  }
+
+  /* 事件内容优化 */
+  .fc-event-content-custom {
+    padding: 0.125rem 0;
+    line-height: 1.2;
+  }
+
+  .fc-event-title-wrapper {
+    gap: 0.125rem;
+  }
+
+  .fc-event-category-badge {
+    font-size: 0.625rem;
+  }
+
+  .fc-event-location {
+    font-size: 0.625rem;
+    margin-top: 0.125rem;
+  }
+
+  /* 更多事件链接 */
+  .fc-more-link {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    min-height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* 超小屏幕优化 */
+@media (max-width: 480px) {
+  .fc-daygrid-day {
+    min-height: 50px;
+  }
+
+  .fc-daygrid-day-number {
+    font-size: 0.75rem;
+    min-height: 28px;
+  }
+
+  .fc-daygrid-event {
+    font-size: 0.625rem;
+    padding: 0.125rem 0.25rem;
+    min-height: 20px;
+  }
+
+  .fc-event-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .fc-event-location {
+    display: none; /* 在超小屏幕上隐藏位置信息 */
+  }
+}
+
+/* 触摸设备优化 */
+@media (hover: none) and (pointer: coarse) {
+  .fc-button:hover {
+    background-color: initial;
+  }
+
+  .fc-button:active {
+    transform: scale(0.98);
+    transition: transform 0.1s;
+  }
+
+  .fc-daygrid-day:hover {
+    background-color: initial;
+  }
+
+  .fc-daygrid-day:active {
+    background-color: #f8fafc;
+  }
+
+  .fc-event:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  .fc-event:active {
+    transform: scale(0.98);
+    transition: transform 0.1s;
+  }
+
+  .fc-list-event:hover {
+    background-color: initial;
+  }
+
+  .fc-list-event:active {
+    background-color: #f8fafc;
+  }
+}
+
+/* 加载状态 */
+.calendar-container .fc-view-harness {
+  position: relative;
+}
+
+.calendar-container.loading .fc-view-harness::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 无事件状态 */
+.fc-list-empty {
+  text-align: center;
+  padding: 2rem;
+  color: #6b7280;
+}
+
+/* 事件颜色预设 */
+.event-color-blue {
+  background-color: #3b82f6;
+}
+.event-color-green {
+  background-color: #10b981;
+}
+.event-color-yellow {
+  background-color: #f59e0b;
+}
+.event-color-red {
+  background-color: #ef4444;
+}
+.event-color-purple {
+  background-color: #8b5cf6;
+}
+.event-color-pink {
+  background-color: #ec4899;
+}

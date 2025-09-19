@@ -14,13 +14,15 @@ describe('HomePage', () => {
     expect(description).toBeInTheDocument();
   });
 
-  it('renders the main action buttons', () => {
+  it('renders the main action links', () => {
     render(<HomePage />);
-    const startButton = screen.getByRole('button', { name: /开始使用/i });
-    const learnMoreButton = screen.getByRole('button', { name: /了解更多/i });
+    const startLink = screen.getByRole('link', { name: /开始使用/i });
+    const loginLink = screen.getByRole('link', { name: /登录/i });
 
-    expect(startButton).toBeInTheDocument();
-    expect(learnMoreButton).toBeInTheDocument();
+    expect(startLink).toBeInTheDocument();
+    expect(startLink).toHaveAttribute('href', '/auth/register');
+    expect(loginLink).toBeInTheDocument();
+    expect(loginLink).toHaveAttribute('href', '/auth/login');
   });
 
   it('renders feature cards', () => {

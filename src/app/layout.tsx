@@ -1,6 +1,13 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
+import { AuthProvider } from '@/components/auth/AuthProvider';
+import {
+  OfflineDetector,
+  PWAInstallPrompt,
+  PWAInitializer,
+} from '@/components/pwa';
+import { PerformanceInitializer } from '@/components/performance/PerformanceInitializer';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -50,9 +57,9 @@ export const metadata: Metadata = {
   },
   manifest: '/manifest.json',
   icons: {
-    icon: '/icons/icon-192x192.png',
-    shortcut: '/icons/icon-192x192.png',
-    apple: '/icons/icon-192x192.png',
+    icon: '/icons/icon-192x192.svg',
+    shortcut: '/icons/icon-192x192.svg',
+    apple: '/icons/icon-192x192.svg',
   },
 };
 
@@ -83,7 +90,14 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen bg-background font-sans antialiased">
-        <div id="root">{children}</div>
+        <AuthProvider>
+          <PWAInitializer />
+          <PerformanceInitializer />
+          <OfflineDetector>
+            <div id="root">{children}</div>
+            <PWAInstallPrompt />
+          </OfflineDetector>
+        </AuthProvider>
       </body>
     </html>
   );

@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* FullCalendar styles */
+@import '../styles/calendar.css';
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -74,6 +77,113 @@
     -webkit-user-select: none;
     -webkit-touch-callout: none;
     -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/* Mobile-first responsive design utilities */
+.touch-manipulation {
+  touch-action: manipulation;
+}
+
+.touch-pan-y {
+  touch-action: pan-y;
+}
+
+.touch-pan-x {
+  touch-action: pan-x;
+}
+
+/* Mobile-optimized button styles */
+@media (max-width: 768px) {
+  button, 
+  [role="button"],
+  input[type="button"],
+  input[type="submit"] {
+    min-height: 44px; /* iOS recommended minimum touch target */
+    min-width: 44px;
+    touch-action: manipulation;
+  }
+
+  /* Improve form inputs on mobile */
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="search"],
+  textarea,
+  select {
+    font-size: 16px; /* Prevent zoom on iOS */
+    min-height: 44px;
+    touch-action: manipulation;
+  }
+
+  /* Optimize dropdown menus for mobile */
+  [role="menu"],
+  [role="listbox"] {
+    max-height: 60vh;
+    overflow-y: auto;
+  }
+
+  /* Improve modal dialogs on mobile */
+  [role="dialog"] {
+    margin: 1rem;
+    max-height: calc(100vh - 2rem);
+    width: calc(100vw - 2rem);
+  }
+}
+
+/* Improve focus visibility on mobile */
+@media (hover: none) and (pointer: coarse) {
+  *:focus {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+  }
+
+  /* Remove hover states on touch devices */
+  .hover\:bg-gray-100:hover {
+    background-color: initial;
+  }
+
+  .hover\:bg-gray-200:hover {
+    background-color: initial;
+  }
+
+  /* Add active states for better touch feedback */
+  .active\:bg-gray-200:active {
+    background-color: #e5e7eb;
+  }
+
+  .active\:bg-gray-300:active {
+    background-color: #d1d5db;
+  }
+
+  .active\:bg-blue-800:active {
+    background-color: #1e40af;
+  }
+
+  .active\:scale-95:active {
+    transform: scale(0.95);
+  }
+}
+
+/* Safe area support for devices with notches */
+.safe-area-pb {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Mobile viewport height fix */
+.min-h-screen-mobile {
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+}
+
+/* Prevent overscroll bounce on iOS */
+@supports (-webkit-touch-callout: none) {
+  body {
+    overscroll-behavior: none;
   }
 }
 
